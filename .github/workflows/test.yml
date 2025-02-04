@@ -26,10 +26,10 @@ jobs:
         run: npm install # or npm install
 
       - name: Run ESLint
-        run: npm lint # or npm run lint
+        run: npm run lint # or npm run lint
 
       - name: Run Jest Tests
-        run: npm test # or npm test 
+        run: npm run test # or npm test 
 
       - name: Cache Node Modules
         uses: actions/cache@v3
