@@ -53,8 +53,7 @@ jobs:
           rm sdk-tools.zip
 
       - name: Accept Android SDK Licenses
-        run: |
-          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
+        run: yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
 
       - name: Install Required Android SDK Packages
         run: |
