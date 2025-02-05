@@ -3,9 +3,7 @@ name: React Native CI
 on:
   push:
     branches:
-      - develop
-  pull_request:
-    branches:
+      - main
       - develop
 
 jobs:
@@ -20,16 +18,16 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 18
 
       - name: Install Dependencies
-        run: npm install # or npm install
+        run: npm install
 
       - name: Run ESLint
-        run: npm run lint # or npm run lint
+        run: npm run lint
 
       - name: Run Jest Tests
-        run: npm run test # or npm test 
+        run: npm run test
 
       - name: Cache Node Modules
         uses: actions/cache@v3
@@ -52,15 +50,20 @@ jobs:
           sudo mv $ANDROID_HOME/cmdline-tools/cmdline-tools $ANDROID_HOME/cmdline-tools/latest
           rm sdk-tools.zip
 
-      - name: Accept Android SDK Licenses
-        run: yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
+      - name: Accept Android SDK Licenses (Manual)
+        run: |
+          export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH
+          yes | sdkmanager --licenses
 
       - name: Install Required Android SDK Packages
         run: |
-          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-34" "build-tools;34.0.0" "platform-tools"
+          export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH
+          sdkmanager "platforms;android-34" "build-tools;34.0.0" "platform-tools" "ndk;27.1.12297006"
 
       - name: Verify SDK Installation
-        run: $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --list
+        run: |
+          export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH
+          sdkmanager --list
 
       - name: Grant Execute Permission to Gradlew
         run: chmod +x android/gradlew
