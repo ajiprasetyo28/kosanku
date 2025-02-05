@@ -50,7 +50,7 @@ jobs:
           sudo mv $ANDROID_HOME/cmdline-tools/cmdline-tools $ANDROID_HOME/cmdline-tools/latest
           rm sdk-tools.zip
 
-        - name: Manually Accept Android SDK Licenses
+      - name: Manually Accept Android SDK Licenses
         run: |
           sudo mkdir -p $ANDROID_HOME/licenses
           echo -n "24333f8a63b6825ea9c5514f83c2829b004d1fee" > $ANDROID_HOME/licenses/android-sdk-license
