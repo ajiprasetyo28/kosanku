@@ -50,10 +50,11 @@ jobs:
           sudo mv $ANDROID_HOME/cmdline-tools/cmdline-tools $ANDROID_HOME/cmdline-tools/latest
           rm sdk-tools.zip
 
-      - name: Accept Android SDK Licenses (Manual)
+        - name: Manually Accept Android SDK Licenses
         run: |
-          export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH
-          yes | sdkmanager --licenses
+          sudo mkdir -p $ANDROID_HOME/licenses
+          echo -n "24333f8a63b6825ea9c5514f83c2829b004d1fee" > $ANDROID_HOME/licenses/android-sdk-license
+          echo -n "84831b9409646a918e30573bab4c9c91346d8abd" > $ANDROID_HOME/licenses/android-sdk-preview-license
 
       - name: Install Required Android SDK Packages
         run: |
